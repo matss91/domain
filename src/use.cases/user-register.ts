@@ -1,22 +1,42 @@
-import {createInvalidError}from"../errors/error"
-import { UserRole } from "../entities/User"
-import { User } from "../entities/User"
-export type UserRegisterModel=Omit<User,"id"|"role">
+import { createInvalidError } from "../errors/error";
+import { UserRole } from "../entities/User";
+import { User } from "../entities/User";
+import { UsersRepository } from "../usersRepositories/user-Repository";
 
-export  function UserRegister({email,password,username}:UserRegisterModel){
-    if(email==""){
-       return createInvalidError("Email must be not empty") 
-    }
+export type UserRegisterModel = Omit<User, "id" | "role">;
 
-      if(password==""){
-       return createInvalidError("password must be not empty") 
-    }
+export interface UserRegisterDependencies {
+  users: UsersRepository;
+}
 
-     if(username==""){
-       return createInvalidError("username must be not empty") 
-    }
-    
+export async function UserRegister(
+  { email, password, username }: UserRegisterModel,
+  { users }: UserRegisterDependencies
+) {
+  if (!email) {
+    return createInvalidError("Email must not be empty");
+  }
 
-    return createInvalidError("Email alrready in use")
-    
+  if (!password) {
+    return createInvalidError("password must be not empty");
+  }
+
+  if (!username) {
+    return createInvalidError("username must be not empty");
+  }
+
+  const existingUser = await users.findByEmail(email);
+  if (existingUser) {
+    return createInvalidError("Email alrready in use");
+  }
+
+  const user: User = {
+    id: crypto.randomUUID(),
+    email,
+    password,
+    username,
+    role: "user" as UserRole,
+  };
+
+  await users.save(user); // Await to ensure saving is complete
 }
