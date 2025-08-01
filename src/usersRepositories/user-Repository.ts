@@ -3,5 +3,6 @@ import{User}from"../entities/User"
 
 export interface UsersRepository{
 findByEmail(email:String):Promise<User|null>,
-save(user:User):Promise<void>
+save(user:User):Promise<void>,
+comparePassword(user:User,password:string):Promise<Boolean>
 }

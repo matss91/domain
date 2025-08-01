@@ -16,6 +16,12 @@ return user?{...user}:null
     },
     save:async (user:User):Promise<void>=>{
             users.push({...user})
+        },comparePassword:async(user:User,password:String):Promise<Boolean>=>{
+            if(user.password==password){
+                return true
+            }else{
+                return false
+            }
         }
 
 
