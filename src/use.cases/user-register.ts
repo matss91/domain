@@ -3,7 +3,7 @@ import { UserRole } from "../entities/User";
 import { User } from "../entities/User";
 import { UsersRepository } from "../usersRepositories/user-Repository";
 
-export type UserRegisterModel = Omit<User, "id" | "role">;
+export type UserRegisterModel = Omit<User, "id" | "role"|"libros">;
 
 export interface UserRegisterDependencies {
   users: UsersRepository;
@@ -35,7 +35,9 @@ export async function UserRegister(
     email,
     password,
     username,
+    
     role: "user" as UserRole,
+    libros:""
   };
 
   await users.save(user); // Await to ensure saving is complete

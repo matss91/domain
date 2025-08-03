@@ -16,7 +16,8 @@ const existingUser: User = {
     email: "emailregistrado@test.com",
     password: "123456",
     username: "Test 2",
-    role: "admin"
+    role: "admin",
+    libros:""
   };
 
   _mockedUserRepository.save(existingUser);

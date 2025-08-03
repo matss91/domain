@@ -3,7 +3,7 @@ import { UserRole } from "../entities/User";
 import { User } from "../entities/User";
 import { UsersRepository } from "../usersRepositories/user-Repository";
  
-export type UserLoginModel = Omit<User, "id" | "role"|"email">;
+export type UserLoginModel = Omit<User, "id" | "role"|"email"|"libros">;
 
 export interface UserLoginDependencies {
   users: UsersRepository;

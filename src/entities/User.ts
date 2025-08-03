@@ -5,5 +5,6 @@ export interface User{
     username:String,
     email:String,
     password:String,
-    role:UserRole
+    role:UserRole,
+    libros: Libro[]|"";
 }
