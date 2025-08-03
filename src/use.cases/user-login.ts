@@ -21,6 +21,18 @@ export async function UserLogin(
     return createInvalidError("password must be not empty");
   }
 
+const userCompare=await users.compareUsername(username)
+
+ const passwordCompare= await users.comparePassword(password)
+
+ if(!userCompare){
+  return createInvalidError("credenciales invalidas")
+ }
+  if(!passwordCompare){
+  return createInvalidError("credenciales invalidas")
+ }
+ return "usuario logueado correctamente"
+
   
 
   

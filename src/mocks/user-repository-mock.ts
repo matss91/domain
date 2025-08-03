@@ -16,12 +16,14 @@ return user?{...user}:null
     },
     save:async (user:User):Promise<void>=>{
             users.push({...user})
-        },comparePassword:async(user:User,password:String):Promise<Boolean>=>{
-            if(user.password==password){
-                return true
-            }else{
-                return false
-            }
+        },comparePassword:async(password:String):Promise<Boolean>=>{
+            
+          const encontrado1 = users.some(persona => persona.password == password);
+            return encontrado1
+        },
+        compareUsername:async(username:String):Promise<Boolean>=>{
+           const encontrado2 = users.some(persona => persona.username == username);
+            return encontrado2
         }
 
 

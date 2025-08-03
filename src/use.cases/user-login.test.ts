@@ -11,7 +11,15 @@ describe('user-register Use case', () => {
   const _dependencies: UserLoginDependencies = {
     users: _mockedUserRepository
   };
+const existingUser: User = {
+    id: "2",
+    email: "emailregistrado@test.com",
+    password: "123456",
+    username: "Test 2",
+    role: "admin"
+  };
 
+  _mockedUserRepository.save(existingUser);
 
 
 
@@ -35,6 +43,45 @@ describe('user-register Use case', () => {
 
     const result = await UserLogin(payload, _dependencies);
     expect(result).toEqual(createInvalidError("password must be not empty"));
+  });
+
+  test('username incorrect', async () => {
+    const payload: UserLoginModel = {
+    
+      password: "123456",
+      username: "Test",
+    };
+
+    const result = await UserLogin(payload, _dependencies);
+
+   expect(result).toEqual(createInvalidError("credenciales invalidas"));
+   
+  });
+
+    test('username incorrect', async () => {
+    const payload: UserLoginModel = {
+    
+      password: "12345",
+      username: "Test 2",
+    };
+
+    const result = await UserLogin(payload, _dependencies);
+
+   expect(result).toEqual(createInvalidError("credenciales invalidas"));
+   
+  });
+
+   test('username and password correct', async () => {
+    const payload: UserLoginModel = {
+    
+      password: "123456",
+      username: "Test 2",
+    };
+
+    const result = await UserLogin(payload, _dependencies);
+
+   expect(result).toEqual("usuario logueado correctamente");
+   
   });
 
   
