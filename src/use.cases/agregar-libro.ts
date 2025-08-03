@@ -19,6 +19,10 @@ export async function AgregarLibro(
   if (!autor) {
     return createInvalidError("autor must be not empty");
   }
+  const existingUser = await libros.findByTitle(titulo);
+  if (existingUser) {
+    return createInvalidError("boock alrready in use");
+  }
 
   
 
