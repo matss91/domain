@@ -17,7 +17,8 @@ describe('user-register Use case', () => {
     email: "emailregistrado@test.com",
     password: "12345678",
     username: "Test usuario",
-    role: "admin"
+    role: "admin",
+    libros:""
   };
 
   _mockedUserRepository.save(existingUser);
