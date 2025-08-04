@@ -21,9 +21,18 @@ return({libros,
             }
           
       
-        }
+        },elLibroEstaPrestado: async (usuarioId: string): Promise<Boolean> => {
+  const libro = libros.find(libro => libro.usuarioId===usuarioId&&libro.usuarioId=="");
 
-    
+  if (libro) {
+   return true
+  }else{
+    return false
+  }
+
+  
+
+}
 
 
 

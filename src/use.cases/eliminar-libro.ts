@@ -18,8 +18,15 @@ const result=await libros.deletedBook(titulo)
 if (result) {
   return createInvalidError("el libro a eliminar no existe")
 } 
-
+const variable=await libros.elLibroEstaPrestado(usuarioId)
+if(!variable){
+return createInvalidError("el libro esta prestado")
+}
 return "libro eliminado con exito"
+
+
+
+
 
  
   

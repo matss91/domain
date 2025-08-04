@@ -83,6 +83,59 @@ describe('', () => {
 
             });
 
+
+             test('¿esta prestado? ',async () => {
+      const payload2:LibroRegisterModel = {
+            titulo:"libro4",
+            autor:"dsd",
+            usuarioId:"dsd"
+
+
+            
+          };
+    
+ const result=await EliminarLibro(payload2,_dependencies)
+          
+            expect(result).toEqual(createInvalidError("el libro esta prestado"));
+          
+            
+          
+
+          
+         
+ 
+          
+ 
+ 
+
+            });
+
+             test('¿esta prestado? ',async () => {
+      const payload2:LibroRegisterModel = {
+            titulo:"libro4",
+            autor:"dsd",
+            usuarioId:""
+
+
+            
+          };
+    
+ const result=await EliminarLibro(payload2,_dependencies)
+          
+            expect(result).toEqual("libro eliminado con exito");
+          
+            
+          
+
+          
+         
+ 
+          
+ 
+ 
+
+            });
+
    
 
     })
