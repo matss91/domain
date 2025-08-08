@@ -1,26 +1,20 @@
-import { UserLibrosRepository } from "../usersRepositories/user-libro-repository";
-import { Libro } from "../entities/Libro";
-import { User } from "../entities/User";
-
-export interface MockedUserLibrosRepository extends UserLibrosRepository {
-  usersArray: User[];
-  librosArray: Libro[];
+import { User } from "../entities/User"
+import{Libro}from"../entities/Libro"
+import { UserLibrosRepository } from "../usersRepositories/user-libro-repository"
+export interface MockedUserLibroRepository extends UserLibrosRepository {
+users:User[],
+libros:Libro[]
 }
 
-export function mockUserLibrosRepository(
-  librosArray: Libro[] = [],
-  usersArray: User[] = []
-): MockedUserLibrosRepository {
-  return {
-    usersArray,
-    librosArray,
+export function UserLibrosRepository(users:User[]=[],libros:Libro[]=[]):MockedUserLibroRepository{
+return({users,libros,LibroPrestado:async (usuarioId:String,titulo:String):Promise<Boolean>=>{
+                const libro = libros.find(libro => libro.titulo==titulo);
+                if(libro?.usuarioId==""){
+                  return true
+                }else{
+                  return false
+                }
+            }})
 
-    // Simula si un libro ha sido prestado según el título
-    LibroPrestado: async (libroId: string, titulo: string): Promise<Boolean> => {
-      const libro = librosArray.find((libro) => libro.titulo === titulo);
-      return !!libro;
-    },
 
-    // Puedes agregar aquí otras funciones del repositorio si es necesario
-  };
 }

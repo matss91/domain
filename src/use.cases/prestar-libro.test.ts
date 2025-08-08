@@ -1,23 +1,38 @@
 import { describe, it, expect, test } from "vitest";
-import { PrestarLibro } from "../use.cases/prestar-libro";
-import { mockUserLibrosRepository } from "../mocks/libro-user.repository";
+import{MockedUserLibroRepository,UserLibrosRepository}from"../mocks/libro-user.repository"
+import{prestarLibroDependences}from"../use.cases/prestar-libro";
 import { Libro } from "../entities/Libro";
+describe('¿esta prestado?', () => {
 
-describe("Use Case: PrestarLibro", () => {
-  it("debería prestar un libro si no está prestado", async () => {
-    const mockRepo = mockUserLibrosRepository([]); // ningún libro prestado
-    const useCase = new PrestarLibro(mockRepo);
+    const _mockedLibroRepository: MockedUserLibroRepository = UserLibrosRepository([],[]);
+    
+      const _dependencies: Omit<prestarLibroDependences,"LibroPrestado"> = {
+        libro: _mockedLibroRepository,
+        users:_mockedLibroRepository
+      };
 
-    const result = await useCase.execute("1", "Cien años de soledad");
+      
+      
+        const libro: Libro = {
+          id: "4",
+          titulo: "libro4",
+          autor: "autor5",
+         usuarioId:"wasd"
+        };
+      test('should ',async () => {
+        const estaprestado=await _mockedLibroRepository.LibroPrestado(libro.titulo,"")
+   
+  expect(estaprestado).toEqual("Email must not be empty");
+          
 
-    expect(result).toBe("Libro prestado correctamente.");
-  });
+      })
+      
+   
+            });
 
-  it("debería lanzar error si el libro ya está prestado", async () => {
-    const libro: Libro = { id: "1", titulo: "Cien años de soledad",autor:"german hese",usuarioId:"4" };
-    const mockRepo = mockUserLibrosRepository([libro]);
-    const useCase = new PrestarLibro(mockRepo);
+   
 
-    await expect(useCase.execute("1", "Cien años de soledad")).rejects.toThrow("El libro ya ha sido prestado.");
-  });
-});
+   
+    
+    
+
